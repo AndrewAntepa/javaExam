@@ -1,4 +1,4 @@
-package org.skypro.JavaExam.exeption;
+package org.skypro.JavaExam.exception;
 
 import org.springframework.http.HttpStatus;
 

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.skypro.JavaExam.exeption.TooManyQuestionsRequestException;
+import org.skypro.JavaExam.exception.TooManyQuestionsRequestException;
 import org.skypro.JavaExam.interfaces.QuestionService;
 import org.skypro.JavaExam.question.Question;
 

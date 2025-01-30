@@ -1,6 +1,6 @@
 package org.skypro.JavaExam.service;
 
-import org.skypro.JavaExam.exeption.TooManyQuestionsRequestException;
+import org.skypro.JavaExam.exception.TooManyQuestionsRequestException;
 import org.skypro.JavaExam.interfaces.ExaminerService;
 import org.skypro.JavaExam.interfaces.QuestionService;
 import org.skypro.JavaExam.question.Question;
@@ -12,9 +12,9 @@ import java.util.*;
 @Service
 public class ExaminerServiceImpl implements ExaminerService {
     private final QuestionService javaQuestionService;
-    private final QuestionService mathQuestionService;
+    private final MathQuestionService mathQuestionService;
 
-    public ExaminerServiceImpl(@Qualifier("javaQuestionService") QuestionService javaQuestionService, @Qualifier("mathQuestionService") QuestionService mathQuestionService) {
+    public ExaminerServiceImpl(@Qualifier("javaQuestionService") QuestionService javaQuestionService, @Qualifier("mathQuestionService") MathQuestionService mathQuestionService) {
         this.javaQuestionService = javaQuestionService;
         this.mathQuestionService = mathQuestionService;
     }
@@ -47,9 +47,6 @@ public class ExaminerServiceImpl implements ExaminerService {
 
     public Collection<Question> createMathQuestions(int amount) {
         List<Question> questions = new ArrayList<>();
-        if (mathQuestionService.getAll().size() < amount) {
-            throw new TooManyQuestionsRequestException("Запрошено слишком много примеров");
-        }
 
         for (int i = 0; i < amount; ) {
             Question question = mathQuestionService.getRandomQuestion();

@@ -1,45 +1,60 @@
 package org.skypro.JavaExam.service;
 
-import org.skypro.JavaExam.interfaces.QuestionRepository;
+import org.skypro.JavaExam.exception.MathQuestionMethodNotAllowedException;
 import org.skypro.JavaExam.interfaces.QuestionService;
 import org.skypro.JavaExam.question.Question;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Random;
 
 @Service
 public class MathQuestionService implements QuestionService {
-    private final QuestionRepository mathQuestionRepository;
+    private final List<Question> questions;
+    private char[] operators = {'+', '-', '*', '/'};
 
-    public MathQuestionService(@Qualifier("mathQuestionRepository") QuestionRepository mathQuestionRepository) {
-        this.mathQuestionRepository = mathQuestionRepository;
+    public MathQuestionService(List<Question> questions) {
+        this.questions = questions;
     }
 
     @Override
     public void add(Question question) {
-        mathQuestionRepository.add(question);
+        throw new MathQuestionMethodNotAllowedException("Method Not Allowed");
     }
 
     @Override
     public void add(String question, String  answer) {
-        mathQuestionRepository.add(new Question(question, answer));
+        throw new MathQuestionMethodNotAllowedException("Method Not Allowed");
     }
 
     @Override
     public Collection<Question> getAll() {
-        return mathQuestionRepository.getAll();
+        throw new MathQuestionMethodNotAllowedException("Method Not Allowed");
     }
 
     @Override
     public void remove(Question question) {
-        mathQuestionRepository.remove(question);
+        throw new MathQuestionMethodNotAllowedException("Method Not Allowed");
     }
 
     @Override
     public Question getRandomQuestion() {
         Random random = new Random();
-        return mathQuestionRepository.getAll().toArray(new Question[0])[random.nextInt(mathQuestionRepository.getAll().size())];
+        int firstNumber = random.nextInt(100);
+        int secondNumber = random.nextInt(100);
+        char operator = operators[random.nextInt(operators.length)];
+        String equation = String.valueOf(firstNumber) + operator + secondNumber;
+        return new Question(equation, evalEquation(firstNumber, secondNumber, operator) + "");
+    }
+
+    private int evalEquation(int firstNumber, int secondNumber, char operator) {
+        return switch (operator) {
+            case '+' -> firstNumber + secondNumber;
+            case '-' -> firstNumber - secondNumber;
+            case '*' -> firstNumber * secondNumber;
+            case '/' -> firstNumber / secondNumber;
+            default -> 0;
+        };
     }
 }
