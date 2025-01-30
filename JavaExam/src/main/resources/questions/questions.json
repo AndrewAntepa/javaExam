@@ -1,0 +1,42 @@
+[
+  {
+    "question": "Что такое JVM, JRE и JDK?",
+    "answer": "JVM (Java Virtual Machine) — виртуальная машина Java, которая выполняет байт-код, сгенерированный компилятором. JRE (Java Runtime Environment) — среда выполнения Java-программ, включающая JVM и необходимые библиотеки. JDK (Java Development Kit) — комплект для разработки приложений на Java, включает JRE, компилятор и инструменты для разработки."
+  },
+  {
+    "question": "Какая разница между == и .equals()?",
+    "answer": "== используется для сравнения ссылок на объекты (проверяет, указывают ли ссылки на один объект). .equals() используется для сравнения содержимого объектов (если метод правильно переопределён, например, в String)."
+  },
+  {
+    "question": "Что такое перегрузка и переопределение методов?",
+    "answer": "Перегрузка (Overloading): Метод имеет одно и то же имя, но разные параметры. Пример: void print(int a) { System.out.println(a); } void print(String s) { System.out.println(s); } Переопределение (Overriding): Подкласс переопределяет метод суперкласса с той же сигнатурой. Пример: class Parent { void show() { System.out.println(\"Parent\"); } } class Child extends Parent { @Override void show() { System.out.println(\"Child\"); } }"
+  },
+  {
+    "question": "Что такое наследование и для чего оно нужно?",
+    "answer": "Наследование позволяет одному классу (подклассу) использовать свойства и методы другого класса (суперкласса). Это способствует повторному использованию кода. Пример: class Animal { void eat() { System.out.println(\"Animal eats\"); } } class Dog extends Animal { void bark() { System.out.println(\"Dog barks\"); } }"
+  },
+  {
+    "question": "Что такое интерфейс и абстрактный класс? В чём разница между ними?",
+    "answer": "Интерфейс — это контракт, определяющий, какие методы должен реализовать класс. Пример: interface Animal { void sound(); } class Dog implements Animal { public void sound() { System.out.println(\"Woof\"); } } Абстрактный класс — это класс, который может содержать как абстрактные, так и обычные методы. Пример: abstract class Shape { abstract void draw(); void info() { System.out.println(\"This is a shape\"); } } Разница: Интерфейс не может содержать реализации методов (до Java 8), а абстрактный класс может. Класс может реализовывать несколько интерфейсов, но наследоваться только от одного класса."
+  },
+  {
+    "question": "Что такое исключения и как с ними работать?",
+    "answer": "Исключения — это события, возникающие во время выполнения программы, которые нарушают её нормальное выполнение. Работа с исключениями: try { int result = 10 / 0; } catch (ArithmeticException e) { System.out.println(\"Ошибка: деление на ноль\"); } finally { System.out.println(\"Этот блок выполняется всегда\"); }"
+  },
+  {
+    "question": "Что такое коллекции в Java? Какие виды коллекций существуют?",
+    "answer": "Коллекции — это структуры данных для хранения и управления группами объектов. Основные виды: List (ArrayList, LinkedList) — хранит элементы в порядке добавления. Set (HashSet, TreeSet) — хранит только уникальные элементы. Map (HashMap, TreeMap) — хранит пары \"ключ-значение\". Queue (PriorityQueue, LinkedList) — работает по принципу \"первым пришёл — первым вышел\"."
+  },
+  {
+    "question": "Что такое потокобезопасность (Thread Safety)?",
+    "answer": "Потокобезопасность означает, что объект или метод может безопасно использоваться несколькими потоками одновременно. Пример потокобезопасного класса: Vector<String> vector = new Vector<>();"
+  },
+  {
+    "question": "Как работает ключевое слово final в Java?",
+    "answer": "final для переменной — её значение нельзя изменить после инициализации. final для метода — метод нельзя переопределить. final для класса — класс нельзя наследовать. Пример: final class Constants { static final double PI = 3.14159; }"
+  },
+  {
+    "question": "Что такое лямбда-выражения?",
+    "answer": "Лямбда-выражения — это способ написать анонимную функцию. Они добавлены в Java 8 для упрощения работы с функциональными интерфейсами. Пример: interface Calculator { int add(int a, int b); } public class Main { public static void main(String[] args) { Calculator calc = (a, b) -> a + b; System.out.println(calc.add(5, 3)); } }"
+  }
+]
