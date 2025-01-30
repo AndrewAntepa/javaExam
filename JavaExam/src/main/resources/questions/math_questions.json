@@ -1,7 +1,0 @@
-[
-    { "question": "2 + 2", "answer": "4" },
-    { "question": "5 * 3", "answer": "15" },
-    { "question": "10 / 2", "answer": "5" },
-    { "question": "√16", "answer": "4" },
-    { "question": "3^2", "answer": "9" }
-]

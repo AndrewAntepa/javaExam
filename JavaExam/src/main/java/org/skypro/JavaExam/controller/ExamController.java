@@ -18,11 +18,11 @@ public class ExamController {
 
     @GetMapping("/exam/java/questions")
     public Collection<Question> getJavaQuestions(@RequestParam("amount") int amount) {
-        return examinerService.createJavaQuestions(amount);
+        return examinerService.getJavaQuestions(amount);
     }
 
     @GetMapping("/exam/math/questions")
     public Collection<Question> getMathQuestions(@RequestParam("amount") int amount) {
-        return examinerService.createMathQuestions(amount);
+        return examinerService.getMathQuestions(amount);
     }
 }
