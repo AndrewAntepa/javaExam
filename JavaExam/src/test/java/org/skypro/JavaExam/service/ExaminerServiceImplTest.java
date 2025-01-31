@@ -8,9 +8,14 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.skypro.JavaExam.exception.TooManyQuestionsRequestException;
+import org.skypro.JavaExam.interfaces.ExaminerService;
+import org.skypro.JavaExam.interfaces.QuestionService;
 import org.skypro.JavaExam.question.Question;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -18,42 +23,29 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class ExaminerServiceImplTest {
     @Mock
-    private GenerateQuestionService generateQuestion;
+    private QuestionService javaQuestionService;
 
-    @InjectMocks
+    @Mock
+    private QuestionService mathQuestionService;
+
     private ExaminerServiceImpl examinerService;
 
     @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
+    void setUp() {
+        when(javaQuestionService.getType()).thenReturn("java");
+
+        examinerService = new ExaminerServiceImpl(List.of(javaQuestionService, mathQuestionService));
     }
 
     @Test
-    public void testGetJavaQuestions() {
-        int amount = 5;
-        Collection<Question> actualQuestions = examinerService.getJavaQuestions(amount);
-
-        assertEquals(generateQuestion.generateJavaQuestions(amount).size(), actualQuestions.size());
-        verify(generateQuestion).generateJavaQuestions(amount);
+    void getJavaQuestions_ShouldThrowException_WhenAmountTooHigh() {
+        when(javaQuestionService.getAll()).thenReturn(List.of());
+        assertThrows(TooManyQuestionsRequestException.class, () -> examinerService.getJavaQuestions(23));
     }
 
     @Test
-    public void testGetTooManyJavaQuestions() {
-        int amount = 15;
-        Collection<Question> actualQuestions = generateQuestion.generateJavaQuestions(amount);
-
-        assertThrows(TooManyQuestionsRequestException.class, () -> generateQuestion.generateJavaQuestions(amount));
-        assertEquals(generateQuestion.generateJavaQuestions(amount).size(), actualQuestions.size());
-        verify(generateQuestion).generateJavaQuestions(amount);
-    }
-
-    @Test
-    public void testGetMathQuestions() {
-        int amount = 3;
-
-        Collection<Question> actualQuestions = examinerService.getMathQuestions(amount);
-
-        assertEquals(generateQuestion.generateMathQuestions(amount).size(), actualQuestions.size());
-        verify(generateQuestion).generateMathQuestions(amount);
+    void getMathQuestions_ShouldReturnRequestedAmount() {
+        when(mathQuestionService.getRandomQuestion()).thenReturn(new Question("random question", "random answer"));
+        assertEquals(1, examinerService.getMathQuestions(1).size());
     }
 }

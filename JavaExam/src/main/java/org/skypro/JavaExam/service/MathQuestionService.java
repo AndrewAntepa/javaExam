@@ -6,16 +6,13 @@ import org.skypro.JavaExam.question.Question;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Random;
 
 @Service
 public class MathQuestionService implements QuestionService {
-    private final List<Question> questions;
     private char[] operators = {'+', '-', '*', '/'};
 
-    public MathQuestionService(List<Question> questions) {
-        this.questions = questions;
+    public MathQuestionService() {
     }
 
     @Override
@@ -41,11 +38,19 @@ public class MathQuestionService implements QuestionService {
     @Override
     public Question getRandomQuestion() {
         Random random = new Random();
+
         int firstNumber = random.nextInt(100);
         int secondNumber = random.nextInt(100);
         char operator = operators[random.nextInt(operators.length)];
+
         String equation = String.valueOf(firstNumber) + operator + secondNumber;
+
         return new Question(equation, evalEquation(firstNumber, secondNumber, operator) + "");
+    }
+
+    @Override
+    public String getType() {
+        return "math";
     }
 
     private int evalEquation(int firstNumber, int secondNumber, char operator) {

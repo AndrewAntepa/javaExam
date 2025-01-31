@@ -14,4 +14,6 @@ public interface QuestionService {
     void remove(Question question);
 
     Question getRandomQuestion();
+
+    String getType();
 }

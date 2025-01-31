@@ -43,4 +43,9 @@ public class JavaQuestionService implements QuestionService {
         Random random = new Random();
         return javaQuestionRepository.getAll().toArray(new Question[0])[random.nextInt(javaQuestionRepository.getAll().size())];
     }
+
+    @Override
+    public String getType() {
+        return "java";
+    }
 }
